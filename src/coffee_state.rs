@@ -48,6 +48,13 @@ impl Service<Request<body::Incoming>> for CoffeeService {
 
                 response.body(Full::new(Bytes::copy_from_slice(&buf)))
             }
+            &Method::POST => match req.uri().path() {
+                "/new_coffee" => {
+                    todo!("Match query parameters for size, special mode and time");
+                    response.body(Full::new(Bytes::copy_from_slice(b"Added!")))
+                }
+                _ => response.body(Full::new(Bytes::copy_from_slice(&[]))),
+            },
             _ => response.body(Full::new(Bytes::copy_from_slice(&[]))),
         };
 
